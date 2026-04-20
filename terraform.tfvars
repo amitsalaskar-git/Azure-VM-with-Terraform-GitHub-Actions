@@ -1,5 +1,5 @@
-resource_group_name = "Dev-1-vm-rg"
+resource_group_name = "Dev-11-vm-rg"
 location            = "eastus"
-vm_name             = "Dev-1-linux-vm"
-vm_size             = "Standard_A1_v2"
+vm_name             = "Dev-11-linux-vm"
+vm_size             = "Standard_A0"
 admin_username      = "azureuser"
