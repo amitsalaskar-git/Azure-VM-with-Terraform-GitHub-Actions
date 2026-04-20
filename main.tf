@@ -39,6 +39,7 @@ resource "azurerm_public_ip" "pip" {
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   allocation_method   = "Static"
+  sku                 = "Standard"      # ✅ Changed from Basic to Standard
 }
 
 # Network Security Group
@@ -90,7 +91,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   network_interface_ids = [azurerm_network_interface.nic.id]
 
   admin_ssh_key {
-    username   = var.admin_username       # ✅ Fixed indentation
+    username   = var.admin_username
     public_key = var.ssh_public_key
   }
 
@@ -101,7 +102,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   source_image_reference {
     publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-jammy"  # ✅ Fixed offer name
+    offer     = "0001-com-ubuntu-server-jammy"
     sku       = "22_04-lts"
     version   = "latest"
   }
