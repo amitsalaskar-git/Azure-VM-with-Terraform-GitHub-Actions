@@ -1,5 +1,5 @@
-resource_group_name = "Prod-15-vm-rg"
-location            = "eastus"
-vm_name             = "Prod-15-linux-vm"
+resource_group_name = "Prod-20-vm-rg"
+location            = "switzerlandnorth"
+vm_name             = "Prod-20-linux-vm"
 vm_size             = "Standard_B2ats_v2"
 admin_username      = "azureuser"
