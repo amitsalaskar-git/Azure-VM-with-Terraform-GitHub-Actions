@@ -3,9 +3,9 @@ name: Terraform - Azure VM
 on:
   push:
     branches:
-      - main        # Auto apply on merge to main
-  pull_request:     # Plan only on PRs
-  workflow_dispatch: # Allow manual trigger
+      - main
+  pull_request:
+  workflow_dispatch:
 
 env:
   ARM_CLIENT_ID:       ${{ secrets.AZURE_CLIENT_ID }}
@@ -20,40 +20,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      # 3. Terraform Init
       - name: Terraform Init
         run: terraform init
 
-      # 4. Terraform Format Check
       - name: Terraform Format
         run: terraform fmt -check
 
-      # 5. Terraform Validate
       - name: Terraform Validate
         run: terraform validate
 
-      # 6. Terraform Plan (always runs)
       - name: Terraform Plan
         run: terraform plan -out=tfplan
         env:
           TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
 
-      # 7. Terraform Apply (only on push to main)
-      - name: Terraform Apply
-       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve tfplan
-      env:
-      TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve tfplan
+        env:
+          TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
