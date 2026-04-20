@@ -1,0 +1,5 @@
+resource_group_name = "my-vm-rg"
+location            = "West Europe"
+vm_name             = "my-linux-vm"
+vm_size             = "Standard_B1s"
+admin_username      = "azureuser"
