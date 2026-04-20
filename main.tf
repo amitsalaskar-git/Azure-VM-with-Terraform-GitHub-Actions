@@ -5,14 +5,6 @@ terraform {
       version = "~> 3.0"
     }
   }
-
-  # Optional: Remote state in Azure Blob Storage
-  # backend "azurerm" {
-  #   resource_group_name  = "tfstate-rg"
-  #   storage_account_name = "tfstatestorage"
-  #   container_name       = "tfstate"
-  #   key                  = "terraform.tfstate"
-  # }
 }
 
 provider "azurerm" {
@@ -90,18 +82,17 @@ resource "azurerm_network_interface_security_group_association" "nic_nsg" {
 
 # Linux Virtual Machine
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = var.vm_name
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
-  size                = var.vm_size
-  admin_username      = var.admin_username
-
+  name                  = var.vm_name
+  resource_group_name   = azurerm_resource_group.rg.name
+  location              = azurerm_resource_group.rg.location
+  size                  = var.vm_size
+  admin_username        = var.admin_username
   network_interface_ids = [azurerm_network_interface.nic.id]
 
   admin_ssh_key {
-  username   = var.admin_username
-  public_key = var.ssh_public_key
-}
+    username   = var.admin_username       # ✅ Fixed indentation
+    public_key = var.ssh_public_key
+  }
 
   os_disk {
     caching              = "ReadWrite"
@@ -110,7 +101,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   source_image_reference {
     publisher = "Canonical"
-    offer     = "UbuntuServer"
+    offer     = "0001-com-ubuntu-server-jammy"  # ✅ Fixed offer name
     sku       = "22_04-lts"
     version   = "latest"
   }
