@@ -1,5 +1,5 @@
-resource_group_name = "Prod-vm-rg"
-location            = "East Asia"
-vm_name             = "prod-linux-vm"
+resource_group_name = "Dev-vm-rg"
+location            = "West Europe"
+vm_name             = "Dev-linux-vm"
 vm_size             = "Standard_B1s"
 admin_username      = "azureuser"
